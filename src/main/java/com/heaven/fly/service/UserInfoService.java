@@ -1,5 +1,6 @@
 package com.heaven.fly.service;
 
+import com.github.pagehelper.PageInfo;
 import com.heaven.fly.model.UserInfo;
 
 /**
@@ -10,4 +11,6 @@ import com.heaven.fly.model.UserInfo;
 
 public interface UserInfoService {
     UserInfo selectById(Integer id);
+
+    PageInfo<UserInfo> selectAll(Integer page, Integer size);
 }

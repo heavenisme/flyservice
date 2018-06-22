@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.heaven.fly.core.common.Service;
 import com.heaven.fly.model.UserInfo;
 
+import java.util.List;
+
 /**
  * @Auther: heaven
  * @Date: 2018/6/19 17:41
@@ -13,5 +15,5 @@ import com.heaven.fly.model.UserInfo;
 public interface UserInfoService extends Service<UserInfo> {
     UserInfo selectById(Integer id);
 
-    PageInfo<UserInfo> selectAll(Integer page, Integer size);
+    List<UserInfo> selectAll(Integer page, Integer size);
 }

@@ -55,9 +55,9 @@ public class UserInfoController {
                     dataType = "Integer", paramType = "query")
     })
     @PostMapping("/selectAll")
-    public ApiResult<PageInfo<UserInfo>> selectAll(@RequestParam(defaultValue = "0") Integer page,
+    public ApiResult<List<UserInfo>> selectAll(@RequestParam(defaultValue = "0") Integer page,
                                                    @RequestParam(defaultValue = "0") Integer size) {
-        PageInfo<UserInfo> pageInfo = userInfoService.selectAll(page, size);
+        List<UserInfo> pageInfo = userInfoService.selectAll(page, size);
         return ApiResponse.makeOKRsp(pageInfo);
     }
 

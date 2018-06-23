@@ -1,5 +1,6 @@
 package com.heaven.fly.core.config;
 
+import com.heaven.fly.core.constant.Project;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +25,7 @@ public class MybatisConfigurer {
         factory.setTypeAliasesPackage("com.heaven.fly.model");
         // 添加XML目录
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        factory.setMapperLocations(resolver.getResources("classpath:mapper/db/*.xml"));
+        factory.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
         return factory.getObject();
     }
 
@@ -32,7 +33,7 @@ public class MybatisConfigurer {
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
-        mapperScannerConfigurer.setBasePackage("com.heaven.fly.dao.db");
+        mapperScannerConfigurer.setBasePackage(Project.MAPPER_PACKAGE);
         return mapperScannerConfigurer;
     }
 

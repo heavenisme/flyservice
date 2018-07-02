@@ -111,6 +111,13 @@
             <version>2.0.1</version>
         </dependency>
 
+        <!--  解析html    http://www.open-open.com/jsoup/ -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.11.2</version>
+        </dependency>
+
         <!--代码生成器-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>

@@ -43,7 +43,7 @@ public class UserInfoController {
                     dataType = "Integer", paramType = "query")
     })
     @PostMapping("/selectById")
-    public ApiResult<UserInfo> selectById(Integer id){
+    public ApiResult<UserInfo> selectById(String id){
         UserInfo userInfo = userInfoService.selectById(id);
         return ApiResponse.makeOKRsp(userInfo);
     }

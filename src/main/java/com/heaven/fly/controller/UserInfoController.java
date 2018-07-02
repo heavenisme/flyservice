@@ -3,6 +3,7 @@ package com.heaven.fly.controller;
 import com.github.pagehelper.PageInfo;
 import com.heaven.fly.core.api.ApiResponse;
 import com.heaven.fly.core.api.ApiResult;
+import com.heaven.fly.core.api.ServiceException;
 import com.heaven.fly.model.UserInfo;
 import com.heaven.fly.service.UserInfoService;
 import io.swagger.annotations.Api;
@@ -15,6 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -31,6 +40,28 @@ import java.util.List;
 public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
+
+    @ApiOperation(value = "用户登录", notes = "用户登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userName", value = "userName",
+                    dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "password", value = "password",
+                    dataType = "String", paramType = "query")
+    })
+    @PostMapping("/login")
+    public ApiResult<UserInfo> login(String userName, String password) {
+        Subject currentUser = SecurityUtils.getSubject();
+        //登录
+        try {
+            currentUser.login(new UsernamePasswordToken(userName, password));
+        }catch (IncorrectCredentialsException i){
+            throw new ServiceException("密码输入错误");
+        }
+        //从session取出用户信息
+        UserInfo user = (UserInfo) currentUser.getPrincipal();
+        return ApiResponse.makeOKRsp(user);
+    }
+
 
     @PostMapping("/hello")
     public String hello(){

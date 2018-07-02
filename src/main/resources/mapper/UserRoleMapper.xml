@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heaven.fly.dao.UserRoleDAO">
+<mapper namespace="com.heaven.fly.dao.UserRoleMapper">
   <resultMap id="BaseResultMap" type="com.heaven.fly.model.UserRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
@@ -9,55 +12,12 @@
   <sql id="Base_Column_List">
     id, user_id, role_id
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from user_role
-    where id = #{id,jdbcType=VARCHAR}
+  <!--根据用户id查询该用户所有角色-->
+  <select id="getRolesByUserId" resultType="string" parameterType="string">
+    select sr.role_value
+    from user_role ur
+    left join sys_role sr on ur.role_id = sr.id
+    where ur.user_id = #{userId,jdbcType=VARCHAR}
+    and sr.is_disable = 0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from user_role
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.heaven.fly.model.UserRole" useGeneratedKeys="true">
-    insert into user_role (user_id, role_id)
-    values (#{userId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.heaven.fly.model.UserRole" useGeneratedKeys="true">
-    insert into user_role
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="roleId != null">
-        role_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.heaven.fly.model.UserRole">
-    update user_role
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="roleId != null">
-        role_id = #{roleId,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.heaven.fly.model.UserRole">
-    update user_role
-    set user_id = #{userId,jdbcType=VARCHAR},
-      role_id = #{roleId,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
 </mapper>

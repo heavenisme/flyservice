@@ -1,94 +1,71 @@
 package com.heaven.fly.model;
 
-import java.io.Serializable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-/**
- * user_role
- * @author 
- */
-@Table(name="user_role")
-public class UserRole implements Serializable {
+@Table(name = "user_role")
+public class UserRole {
     @Id
-    @GeneratedValue(generator = "JDBC")
     private String id;
 
     /**
      * 用户ID
      */
+    @Column(name = "user_id")
     private String userId;
 
     /**
      * 角色id
      */
+    @Column(name = "role_id")
     private String roleId;
 
-    private static final long serialVersionUID = 1L;
-
+    /**
+     * @return id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * @param id
+     */
     public void setId(String id) {
-        this.id = id;
+        this.id = id == null ? null : id.trim();
     }
 
+    /**
+     * 获取用户ID
+     *
+     * @return user_id - 用户ID
+     */
     public String getUserId() {
         return userId;
     }
 
+    /**
+     * 设置用户ID
+     *
+     * @param userId 用户ID
+     */
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.userId = userId == null ? null : userId.trim();
     }
 
+    /**
+     * 获取角色id
+     *
+     * @return role_id - 角色id
+     */
     public String getRoleId() {
         return roleId;
     }
 
+    /**
+     * 设置角色id
+     *
+     * @param roleId 角色id
+     */
     public void setRoleId(String roleId) {
-        this.roleId = roleId;
-    }
-
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        UserRole other = (UserRole) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-            && (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", roleId=").append(roleId);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        this.roleId = roleId == null ? null : roleId.trim();
     }
 }

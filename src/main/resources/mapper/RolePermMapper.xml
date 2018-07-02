@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heaven.fly.dao.db.UserRoleDAO">
-  <resultMap id="BaseResultMap" type="com.heaven.fly.model.UserRole">
+<mapper namespace="com.heaven.fly.dao.RolePermDAO">
+  <resultMap id="BaseResultMap" type="com.heaven.fly.model.RolePerm">
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="perm_id" jdbcType="VARCHAR" property="permId" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, role_id
+    id, perm_id, role_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user_role
+    from role_perm
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from user_role
+    delete from role_perm
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.heaven.fly.model.UserRole" useGeneratedKeys="true">
-    insert into user_role (user_id, role_id)
-    values (#{userId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.heaven.fly.model.RolePerm" useGeneratedKeys="true">
+    insert into role_perm (perm_id, role_id)
+    values (#{permId,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.heaven.fly.model.UserRole" useGeneratedKeys="true">
-    insert into user_role
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.heaven.fly.model.RolePerm" useGeneratedKeys="true">
+    insert into role_perm
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
+      <if test="permId != null">
+        perm_id,
       </if>
       <if test="roleId != null">
         role_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="permId != null">
+        #{permId,jdbcType=VARCHAR},
       </if>
       <if test="roleId != null">
         #{roleId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.heaven.fly.model.UserRole">
-    update user_role
+  <update id="updateByPrimaryKeySelective" parameterType="com.heaven.fly.model.RolePerm">
+    update role_perm
     <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
+      <if test="permId != null">
+        perm_id = #{permId,jdbcType=VARCHAR},
       </if>
       <if test="roleId != null">
         role_id = #{roleId,jdbcType=VARCHAR},
@@ -54,9 +54,9 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.heaven.fly.model.UserRole">
-    update user_role
-    set user_id = #{userId,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.heaven.fly.model.RolePerm">
+    update role_perm
+    set perm_id = #{permId,jdbcType=VARCHAR},
       role_id = #{roleId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>

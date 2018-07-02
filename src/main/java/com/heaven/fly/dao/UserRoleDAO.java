@@ -1,4 +1,4 @@
-package com.heaven.fly.dao.db;
+package com.heaven.fly.dao;
 
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.heaven.fly.dao.db;
+package com.heaven.fly.dao;
 
 import com.heaven.fly.model.SysPermissionInit;
 import javax.persistence.Column;

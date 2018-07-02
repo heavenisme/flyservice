@@ -1,10 +1,8 @@
 package com.heaven.fly.service.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.heaven.fly.core.api.ServiceException;
 import com.heaven.fly.core.common.AbsService;
-import com.heaven.fly.dao.db.UserInfoDAO;
+import com.heaven.fly.dao.UserInfoDAO;
 import com.heaven.fly.model.UserInfo;
 import com.heaven.fly.service.UserInfoService;
 import org.springframework.stereotype.Service;

@@ -118,6 +118,13 @@
             <version>1.11.2</version>
         </dependency>
 
+        <!--shiro权限管理依赖-->
+        <!--<dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring-boot-starter</artifactId>
+            <version>1.4.0-RC2</version>
+        </dependency>-->
+
         <!--代码生成器-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>

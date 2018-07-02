@@ -21,9 +21,9 @@ import javax.sql.DataSource;
  * @Date: 2018/6/23 11:01
  * @Description:
  */
-@Configuration
-@EnableTransactionManagement
-@MapperScan(basePackages = {"com.heaven.fly.dao.db"})
+//@Configuration
+//@EnableTransactionManagement
+//@MapperScan(basePackages = {"com.heaven.fly.dao.db"})
 public class MysqlDataSourceConfig {
     @Bean(name = "primaryDataSource")
     //需设置主数据源

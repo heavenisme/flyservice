@@ -17,8 +17,8 @@ import javax.sql.DataSource;
  * @Date: 2018/6/23 11:01
  * @Description:
  */
-@Configuration
-@MapperScan(basePackages = {"com.heaven.fly.dao.db1"}, sqlSessionFactoryRef = "secondSqlSessionFactory")
+//@Configuration
+//@MapperScan(basePackages = {"com.heaven.fly.dao.db1"}, sqlSessionFactoryRef = "secondSqlSessionFactory")
 public class MysqlDataSource1Config {
     @Bean(name = "secondDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.db1")

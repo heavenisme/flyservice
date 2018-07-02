@@ -7,6 +7,7 @@ import com.heaven.fly.core.common.AbsService;
 import com.heaven.fly.dao.db.UserInfoDAO;
 import com.heaven.fly.model.UserInfo;
 import com.heaven.fly.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,7 +21,7 @@ import java.util.List;
 @Service
 public class UserInfoServiceImpl  extends AbsService<UserInfo> implements UserInfoService {
 
-    @Resource
+    @Autowired
     private UserInfoDAO userInfoDao;
 
     public UserInfo selectById(Integer id){

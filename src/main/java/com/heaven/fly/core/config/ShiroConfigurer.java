@@ -19,9 +19,6 @@ import java.util.List;
  */
 @Configuration
 public class ShiroConfigurer {
-    @Resource
-    private SysPermissionInitService sysPermissionInitService;
-
     /**
      * 注入自定义的realm，告诉shiro如何获取用户信息来做登录或权限控制
      */
@@ -49,11 +46,11 @@ public class ShiroConfigurer {
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chain = new DefaultShiroFilterChainDefinition();
-        List<SysPermissionInit> list = sysPermissionInitService.selectAllOrderBySort();
-        for(int i = 0,length = list.size();i<length;i++){
-            SysPermissionInit sysPermissionInit = list.get(i);
-            chain.addPathDefinition(sysPermissionInit.getUrl(), sysPermissionInit.getPermissionInit());
-        }
+        chain.addPathDefinition( "/userInfo/selectById", "authc, roles[admin]");
+        chain.addPathDefinition( "/logout", "anon");
+        chain.addPathDefinition( "/userInfo/selectAll", "anon");
+        chain.addPathDefinition( "/userInfo/login", "anon");
+        chain.addPathDefinition( "/**", "authc");
         return chain;
     }
 

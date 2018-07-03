@@ -7,6 +7,8 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import com.heaven.fly.core.api.ApiCode;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.api.ServiceException;
+import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -50,6 +53,7 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
 
     /**
      * 修改自定义消息转换器
+     *
      * @param converters
      */
     @Override
@@ -100,9 +104,10 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
 
     /**
      * 创建异常处理
+     *
      * @return
      */
-    private HandlerExceptionResolver getHandlerExceptionResolver(){
+    private HandlerExceptionResolver getHandlerExceptionResolver() {
         HandlerExceptionResolver handlerExceptionResolver = (request, response, handler, e) -> {
             ApiResult<Object> result = getResuleByHeandleException(request, handler, e);
             responseResult(response, result);
@@ -113,12 +118,13 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
 
     /**
      * 根据异常类型确定返回数据
+     *
      * @param request
      * @param handler
      * @param e
      * @return
      */
-    private ApiResult<Object> getResuleByHeandleException(HttpServletRequest request, Object handler, Exception e){
+    private ApiResult<Object> getResuleByHeandleException(HttpServletRequest request, Object handler, Exception e) {
         ApiResult<Object> result = new ApiResult<>();
         if (e instanceof ServiceException) {
             result.setCode(ApiCode.FAIL).setMsg(e.getMessage()).setData(null);
@@ -127,25 +133,34 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
         if (e instanceof NoHandlerFoundException) {
             result.setCode(ApiCode.NOT_FOUND).setMsg("接口 [" + request.getRequestURI() + "] 不存在");
             return result;
-        }
-        result.setCode(ApiCode.INTERNAL_SERVER_ERROR).setMsg("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员");
-        String message;
-        if (handler instanceof HandlerMethod) {
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            message = String.format("接口 [%s] 出现异常，方法：%s.%s，异常摘要：%s", request.getRequestURI(),
-                    handlerMethod.getBean().getClass().getName(), handlerMethod.getMethod() .getName(), e.getMessage());
+        } else if (e instanceof UnauthorizedException) {
+            result.setCode(ApiCode.UNAUTHEN).setMsg("用户没有访问权限").setData(null);
+        } else if (e instanceof UnauthenticatedException) {
+            result.setCode(ApiCode.UNAUTHEN).setMsg("用户未登录").setData(null);
+        } else if (e instanceof ServletException) {
+            result.setCode(ApiCode.FAIL).setMsg(e.getMessage());
         } else {
-            message = e.getMessage();
+            result.setCode(ApiCode.INTERNAL_SERVER_ERROR).setMsg("接口 [" + request.getRequestURI() + "] 内部错误，请联系管理员");
+            String message;
+            if (handler instanceof HandlerMethod) {
+                HandlerMethod handlerMethod = (HandlerMethod) handler;
+                message = String.format("接口 [%s] 出现异常，方法：%s.%s，异常摘要：%s", request.getRequestURI(), handlerMethod.getBean().getClass().getName(), handlerMethod.getMethod()
+                        .getName(), e.getMessage());
+            } else {
+                message = e.getMessage();
+            }
+            LOGGER.error(message, e);
         }
-        LOGGER.error(message, e);
+
+        LOGGER.error(result.getMsg(), e);
         return result;
     }
 
     /**
-     * @Title: responseResult
-     * @Description: 响应结果
      * @param response
      * @param result
+     * @Title: responseResult
+     * @Description: 响应结果
      * @Reutrn void
      */
     private void responseResult(HttpServletResponse response, ApiResult<Object> result) {
@@ -153,7 +168,7 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
         response.setHeader("Content-type", "application/json;charset=UTF-8");
         response.setStatus(200);
         try {
-            response.getWriter().write(JSON.toJSONString(result,SerializerFeature.WriteMapNullValue));
+            response.getWriter().write(JSON.toJSONString(result, SerializerFeature.WriteMapNullValue));
         } catch (IOException ex) {
             LOGGER.error(ex.getMessage());
         }

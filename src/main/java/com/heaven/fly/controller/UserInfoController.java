@@ -1,6 +1,7 @@
 package com.heaven.fly.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.heaven.fly.core.aop.AnnotationLog;
 import com.heaven.fly.core.api.ApiResponse;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.api.ServiceException;
@@ -74,6 +75,7 @@ public class UserInfoController {
                     dataType = "Integer", paramType = "query")
     })
     @PostMapping("/selectById")
+    @AnnotationLog(remark = "查询")
     public ApiResult<UserInfo> selectById(String id){
         UserInfo userInfo = userInfoService.selectById(id);
         return ApiResponse.makeOKRsp(userInfo);

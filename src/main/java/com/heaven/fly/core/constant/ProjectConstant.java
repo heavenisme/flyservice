@@ -5,7 +5,7 @@ package com.heaven.fly.core.constant;
  * @Date: 2018/6/22 23:27
  * @Description:
  */
-public class Project {
+public class ProjectConstant {
     // 项目基础包名称，根据自己公司的项目修改
     public static final String BASE_PACKAGE = "com.heaven.fly";
 
@@ -28,5 +28,5 @@ public class Project {
     public static final String MAPPER_INTERFACE_REFERENCE = BASE_PACKAGE + ".core.common.Mapper";
 
     //文件上传储存的地址
-    public static final String SAVEFILEPATH = "F://img";
+    public static final String SAVEFILEPATH = "/Users/heaven/IdeaProjects/flyservice/src/main/resources/static/file";
 }

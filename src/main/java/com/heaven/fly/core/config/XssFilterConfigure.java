@@ -14,7 +14,7 @@ import java.util.Map;
  * @Description:
  */
 @Configuration
-public class XssFilterConfigurer {
+public class XssFilterConfigure {
 
     /**
      * xss过滤拦截器

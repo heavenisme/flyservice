@@ -1,6 +1,6 @@
 package com.heaven.fly.core.config;
 
-import com.heaven.fly.core.constant.Project;
+import com.heaven.fly.core.constant.ProjectConstant;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +33,7 @@ public class MybatisConfigurer {
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactoryBean");
-        mapperScannerConfigurer.setBasePackage(Project.MAPPER_PACKAGE);
+        mapperScannerConfigurer.setBasePackage(ProjectConstant.MAPPER_PACKAGE);
         return mapperScannerConfigurer;
     }
 

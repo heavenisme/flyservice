@@ -18,7 +18,7 @@ import java.util.List;
  * @Description:
  */
 @Configuration
-public class ShiroConfigurer {
+public class ShiroConfigure {
 
     @Resource
     private SysPermissionInitService sysPermissionInitService;

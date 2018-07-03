@@ -1,8 +1,7 @@
 package com.heaven.fly.core.gencode;
-import com.heaven.fly.core.constant.Project;
+import com.heaven.fly.core.constant.ProjectConstant;
 import com.google.common.base.CaseFormat;
 import freemarker.template.TemplateExceptionHandler;
-import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.DefaultShellCallback;
@@ -30,11 +29,11 @@ public class CodeGenerator {
     private static final String JAVA_PATH = "src/main/java"; // java文件路径
     private static final String RESOURCES_PATH = "src/main/resources";// 资源文件路径
     // 生成的Service存放路径
-    private static final String PACKAGE_PATH_SERVICE = packageConvertPath(Project.SERVICE_PACKAGE);
+    private static final String PACKAGE_PATH_SERVICE = packageConvertPath(ProjectConstant.SERVICE_PACKAGE);
     // 生成的Service实现存放路径
-    private static final String PACKAGE_PATH_SERVICE_IMPL = packageConvertPath(Project.SERVICE_IMPL_PACKAGE);
+    private static final String PACKAGE_PATH_SERVICE_IMPL = packageConvertPath(ProjectConstant.SERVICE_IMPL_PACKAGE);
     // 生成的Controller存放路径
-    private static final String PACKAGE_PATH_CONTROLLER = packageConvertPath(Project.CONTROLLER_PACKAGE);
+    private static final String PACKAGE_PATH_CONTROLLER = packageConvertPath(ProjectConstant.CONTROLLER_PACKAGE);
 
     // @author
     private static final String AUTHOR = "heaven";
@@ -130,11 +129,11 @@ public class CodeGenerator {
             String modelNameUpperCamel = tableNameConvertUpperCamel(tableName);
             data.put("modelNameUpperCamel", modelNameUpperCamel);
             data.put("modelNameLowerCamel", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, modelNameUpperCamel));
-            data.put("basePackage", Project.BASE_PACKAGE);
-            data.put("basePackageService", Project.SERVICE_PACKAGE);
-            data.put("basePackageServiceImpl", Project.SERVICE_IMPL_PACKAGE);
-            data.put("basePackageModel", Project.MODEL_PACKAGE);
-            data.put("basePackageDao", Project.MAPPER_PACKAGE);
+            data.put("basePackage", ProjectConstant.BASE_PACKAGE);
+            data.put("basePackageService", ProjectConstant.SERVICE_PACKAGE);
+            data.put("basePackageServiceImpl", ProjectConstant.SERVICE_IMPL_PACKAGE);
+            data.put("basePackageModel", ProjectConstant.MODEL_PACKAGE);
+            data.put("basePackageDao", ProjectConstant.MAPPER_PACKAGE);
 
             File file = new File(JAVA_PATH + PACKAGE_PATH_SERVICE + modelNameUpperCamel + "Service.java");
             if (!file.getParentFile().exists()) {
@@ -164,10 +163,10 @@ public class CodeGenerator {
             data.put("baseRequestMapping", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, modelNameUpperCamel));
             data.put("modelNameUpperCamel", modelNameUpperCamel);
             data.put("modelNameLowerCamel", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, modelNameUpperCamel));
-            data.put("basePackage", Project.BASE_PACKAGE);
-            data.put("basePackageController", Project.CONTROLLER_PACKAGE);
-            data.put("basePackageService", Project.SERVICE_PACKAGE);
-            data.put("basePackageModel", Project.MODEL_PACKAGE);
+            data.put("basePackage", ProjectConstant.BASE_PACKAGE);
+            data.put("basePackageController", ProjectConstant.CONTROLLER_PACKAGE);
+            data.put("basePackageService", ProjectConstant.SERVICE_PACKAGE);
+            data.put("basePackageModel", ProjectConstant.MODEL_PACKAGE);
 
             File file = new File(JAVA_PATH + PACKAGE_PATH_CONTROLLER + modelNameUpperCamel + "Controller.java");
             if (!file.getParentFile().exists()) {
@@ -203,14 +202,14 @@ public class CodeGenerator {
     private static PluginConfiguration getPluginConfiguration() {
         PluginConfiguration pluginConfiguration = new PluginConfiguration();
         pluginConfiguration.setConfigurationType("tk.mybatis.mapper.generator.MapperPlugin");
-        pluginConfiguration.addProperty("mappers", Project.MAPPER_INTERFACE_REFERENCE);
+        pluginConfiguration.addProperty("mappers", ProjectConstant.MAPPER_INTERFACE_REFERENCE);
         return pluginConfiguration;
     }
 
     private static JavaModelGeneratorConfiguration getJavaModelGeneratorConfiguration() {
         JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = new JavaModelGeneratorConfiguration();
         javaModelGeneratorConfiguration.setTargetProject(JAVA_PATH);
-        javaModelGeneratorConfiguration.setTargetPackage(Project.MODEL_PACKAGE);
+        javaModelGeneratorConfiguration.setTargetPackage(ProjectConstant.MODEL_PACKAGE);
         javaModelGeneratorConfiguration.addProperty("enableSubPackages", "true");
         javaModelGeneratorConfiguration.addProperty("trimStrings", "true");
         return javaModelGeneratorConfiguration;
@@ -226,7 +225,7 @@ public class CodeGenerator {
     private static JavaClientGeneratorConfiguration getJavaClientGeneratorConfiguration() {
         JavaClientGeneratorConfiguration javaClientGeneratorConfiguration = new JavaClientGeneratorConfiguration();
         javaClientGeneratorConfiguration.setTargetProject(JAVA_PATH);
-        javaClientGeneratorConfiguration.setTargetPackage(Project.MAPPER_PACKAGE);
+        javaClientGeneratorConfiguration.setTargetPackage(ProjectConstant.MAPPER_PACKAGE);
         javaClientGeneratorConfiguration.setConfigurationType("XMLMAPPER");
         return javaClientGeneratorConfiguration;
     }

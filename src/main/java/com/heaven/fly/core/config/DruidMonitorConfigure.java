@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-public class DruidMonitorConfigurer {
+public class DruidMonitorConfigure {
     /**
      * 注册ServletRegistrationBean
      * @return

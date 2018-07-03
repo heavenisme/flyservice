@@ -35,8 +35,8 @@ import java.util.List;
  * @Description:
  */
 @Configuration
-public class WebConfigurer extends WebMvcConfigurationSupport {
-    private final static Logger LOGGER = LoggerFactory.getLogger(WebConfigurer.class);
+public class WebConfigure extends WebMvcConfigurationSupport {
+    private final static Logger LOGGER = LoggerFactory.getLogger(WebConfigure.class);
 
 
     @Override

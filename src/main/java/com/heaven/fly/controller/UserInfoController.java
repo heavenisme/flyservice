@@ -1,5 +1,6 @@
 package com.heaven.fly.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.heaven.fly.core.aop.AnnotationLog;
 import com.heaven.fly.core.api.ApiResponse;
@@ -91,12 +92,21 @@ public class UserInfoController {
     @PostMapping("/selectAll")
     public ApiResult<List<UserInfo>> selectAll(@RequestParam(defaultValue = "0") Integer page,
                                                    @RequestParam(defaultValue = "0") Integer size) {
-        List<UserInfo> pageInfo = userInfoService.selectAll(page, size);
+        PageHelper.startPage(page, size);
+        List<UserInfo> pageInfo = userInfoService.selectAll();
+        return ApiResponse.makeOKRsp(pageInfo);
+    }
+
+    @PostMapping("/selectAlla")
+    public ApiResult<PageInfo<UserInfo>> selectAlla(@RequestParam(defaultValue = "0") Integer page,
+                                                    @RequestParam(defaultValue = "0") Integer size) {
+        List<UserInfo> list = userInfoService.selectAlla(page, size);
+        PageInfo<UserInfo> pageInfo = new PageInfo<>(list);
         return ApiResponse.makeOKRsp(pageInfo);
     }
 
     @PostMapping("/testException")
-    public ApiResult<UserInfo> testException(Integer id){
+    public ApiResult<UserInfo> testException(String id){
         List a = null;
         a.size();
         UserInfo userInfo = userInfoService.selectById(id);

@@ -18,8 +18,10 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -48,6 +50,37 @@ public class WebConfigure extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/favicon.ico")
                 .addResourceLocations("classpath:/META-INF/resources/favicon.ico");
         super.addResourceHandlers(registry);
+    }
+
+    /**
+     * TODO  修改为自己的需求
+     */
+    private static final String IZATION = "CHUCHEN";
+
+    /**
+     * 添加拦截器  请求头拦截
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(
+                //注意，HandlerInterceptorAdapter  这里可以修改为自己创建的拦截器
+                new HandlerInterceptorAdapter() {
+                    @Override
+                    public boolean preHandle(HttpServletRequest request,
+                                             HttpServletResponse response, Object handler) throws Exception {
+                        String ization = request.getHeader("ization");
+                        if(IZATION.equals(ization)){
+                            return true;
+                        }else{
+                            ApiResult<Object> result = new ApiResult<>();
+                            result.setCode(ApiCode.UNAUTHORIZED).setMsg("签名认证失败");
+                            responseResult(response, result);
+                            return false;
+                        }
+                    }
+                }
+                //这里添加的是拦截的路径  /**为全部拦截
+        ).addPathPatterns("/userInfo/selectAlla");
     }
 
 

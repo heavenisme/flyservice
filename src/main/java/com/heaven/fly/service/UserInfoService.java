@@ -13,7 +13,5 @@ import java.util.List;
  */
 
 public interface UserInfoService extends Service<UserInfo> {
-    UserInfo selectById(Integer id);
-
-    List<UserInfo> selectAll(Integer page, Integer size);
+    List<UserInfo> selectAlla(int page, int size);
 }

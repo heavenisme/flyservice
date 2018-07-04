@@ -140,7 +140,12 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-
+        <!--添加导出Excel表格功能-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.9</version>
+        </dependency>
         <!--代码生成器-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>

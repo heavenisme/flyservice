@@ -3,6 +3,7 @@ package com.heaven.fly.controller;
 import com.heaven.fly.core.api.ApiResponse;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.service.RedisService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("redis")
+@Api(tags = {"redis"}, description = "RedisController")
 public class RedisController {
     @Resource
     private RedisService redisService;

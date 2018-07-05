@@ -6,6 +6,7 @@ import com.heaven.fly.core.constant.MailConstant;
 import com.heaven.fly.core.utils.GlobalUtils;
 import com.heaven.fly.model.Mail;
 import com.heaven.fly.service.MailService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/mail")
+@Api(tags = {"邮件发送"}, description = "MailController")
 public class MailController {
     @Resource
     private MailService mailService;

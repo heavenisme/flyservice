@@ -7,6 +7,7 @@ import com.heaven.fly.model.UserRole;
 import com.heaven.fly.service.UserRoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/userRole")
+@Api(tags = {"角色管理"}, description = "UserRoleController")
 public class UserRoleController {
 
     @Resource

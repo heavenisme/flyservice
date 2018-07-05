@@ -3,6 +3,7 @@ package com.heaven.fly.controller;
 import com.heaven.fly.core.api.ApiResponse;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.utils.UploadFileUtils;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/uploadFile")
+@Api(tags = {"文件上传"}, description = "UploadFileController")
 public class UploadFileController {
     @PostMapping("/upload")
     public ApiResult<List<String>> upload(HttpServletRequest httpServletRequest) throws Exception {

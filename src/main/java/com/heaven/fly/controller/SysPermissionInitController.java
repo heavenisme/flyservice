@@ -7,6 +7,7 @@ import com.heaven.fly.model.SysPermissionInit;
 import com.heaven.fly.service.SysPermissionInitService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/sysPermissionInit")
+@Api(tags = {"url权限管理"}, description = "SysPermissionInitController")
 public class SysPermissionInitController {
 
     @Resource

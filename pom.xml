@@ -154,6 +154,14 @@
             <version>0.4.8</version>
         </dependency>
 
+        <!-- 热部署 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <!-- true标识不会传递依赖，其他项目如果依赖此项目，需要重新引入devtools -->
+            <optional>true</optional>
+        </dependency>
+
         <!--代码生成器-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>

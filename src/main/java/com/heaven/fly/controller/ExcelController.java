@@ -7,6 +7,7 @@ import com.heaven.fly.core.utils.ExcelUtils;
 import com.heaven.fly.model.ExcelData;
 import com.heaven.fly.model.UserInfo;
 import com.heaven.fly.service.UserInfoService;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("excel")
+@Api(tags = {"execl导出"}, description = "ExcelController")
 public class ExcelController {
 
     @Resource

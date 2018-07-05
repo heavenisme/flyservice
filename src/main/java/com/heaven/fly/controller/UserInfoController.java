@@ -30,7 +30,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
-
 /**
  * @Auther: heaven
  * @Date: 2018/6/19 17:51
@@ -44,19 +43,13 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @ApiOperation(value = "用户登录", notes = "用户登录")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName", value = "userName",
-                    dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "password", value = "password",
-                    dataType = "String", paramType = "query")
-    })
     @PostMapping("/login")
-    public ApiResult<UserInfo> login(String userName, String password) {
+    public ApiResult<UserInfo> login(@RequestBody UserInfo userInfo) {
         Subject currentUser = SecurityUtils.getSubject();
         //登录
         try {
-            currentUser.login(new UsernamePasswordToken(userName, password));
-        }catch (IncorrectCredentialsException i){
+            currentUser.login(new UsernamePasswordToken(userInfo.getUserName(), userInfo.getPassword()));
+        } catch (IncorrectCredentialsException i) {
             throw new ServiceException("密码输入错误");
         }
         //从session取出用户信息
@@ -65,33 +58,18 @@ public class UserInfoController {
     }
 
 
-    @PostMapping("/hello")
-    public String hello(){
-        return "hello SpringBoot";
-    }
-
     @ApiOperation(value = "查询用户", notes = "根据用户ID查询用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true,
-                    dataType = "Integer", paramType = "query")
-    })
     @PostMapping("/selectById")
     @AnnotationLog(remark = "查询")
-    public ApiResult<UserInfo> selectById(String id){
+    public ApiResult<UserInfo> selectById(String id) {
         UserInfo userInfo = userInfoService.selectById(id);
         return ApiResponse.makeOKRsp(userInfo);
     }
 
     @ApiOperation(value = "查询用户", notes = "分页查询用户所有")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "当前页码",
-                    dataType = "Integer", paramType = "query"),
-            @ApiImplicitParam(name = "size", value = "每页显示条数",
-                    dataType = "Integer", paramType = "query")
-    })
     @PostMapping("/selectAll")
     public ApiResult<List<UserInfo>> selectAll(@RequestParam(defaultValue = "0") Integer page,
-                                                   @RequestParam(defaultValue = "0") Integer size) {
+                                               @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<UserInfo> pageInfo = userInfoService.selectAll();
         return ApiResponse.makeOKRsp(pageInfo);
@@ -106,7 +84,7 @@ public class UserInfoController {
     }
 
     @PostMapping("/testException")
-    public ApiResult<UserInfo> testException(String id){
+    public ApiResult<UserInfo> testException(String id) {
         List a = null;
         a.size();
         UserInfo userInfo = userInfoService.selectById(id);

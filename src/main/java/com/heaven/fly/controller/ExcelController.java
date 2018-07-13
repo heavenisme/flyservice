@@ -29,7 +29,7 @@ public class ExcelController {
     @PostMapping("/test")
     public ApiResult<Integer> test(){
         int rowIndex = 0;
-        List<UserInfo> list = userInfoService.selectAlla(0, 0);
+        List<UserInfo> list = userInfoService.selectAll();
         ExcelData data = new ExcelData();
         data.setName("hello");
         List<String> titles = new ArrayList();
@@ -50,7 +50,7 @@ public class ExcelController {
     @GetMapping("/test2")
     public void test2(HttpServletResponse response){
         int rowIndex = 0;
-        List<UserInfo> list = userInfoService.selectAlla(0, 0);
+        List<UserInfo> list = userInfoService.selectAll();
         ExcelData data = new ExcelData();
         data.setName("hello");
         List<String> titles = new ArrayList();

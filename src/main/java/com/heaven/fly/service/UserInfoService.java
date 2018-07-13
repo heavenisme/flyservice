@@ -13,5 +13,4 @@ import java.util.List;
  */
 
 public interface UserInfoService extends Service<UserInfo> {
-    List<UserInfo> selectAlla(int page, int size);
 }

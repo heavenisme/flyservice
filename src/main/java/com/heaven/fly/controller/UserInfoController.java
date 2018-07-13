@@ -109,21 +109,4 @@ public class UserInfoController {
         PageInfo<UserInfo> pageInfo = new PageInfo<>(userInfoList);
         return ApiResponse.makeOKRsp(pageInfo);
     }
-
-    @PostMapping("/selectAlla")
-    public ApiResult<PageInfo<UserInfo>> selectAlla(@RequestParam(defaultValue = "0") Integer page,
-                                                    @RequestParam(defaultValue = "0") Integer size) {
-        List<UserInfo> list = userInfoService.selectAlla(page, size);
-        PageInfo<UserInfo> pageInfo = new PageInfo<>(list);
-        return ApiResponse.makeOKRsp(pageInfo);
-    }
-
-    @PostMapping("/testException")
-    public ApiResult<UserInfo> testException(String id) {
-        List a = null;
-        a.size();
-        UserInfo userInfo = userInfoService.selectById(id);
-        return ApiResponse.makeOKRsp(userInfo);
-    }
-
 }

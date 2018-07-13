@@ -7,12 +7,16 @@ import com.heaven.fly.core.api.ApiResponse;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.api.ServiceException;
 import com.heaven.fly.core.common.model.PageRequestInfo;
+import com.heaven.fly.core.utils.GlobalUtils;
 import com.heaven.fly.model.UserInfo;
+import com.heaven.fly.model.reqmodel.Login;
+import com.heaven.fly.model.reqmodel.RegistInfo;
 import com.heaven.fly.service.UserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +33,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 
 /**
@@ -43,13 +48,35 @@ public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;
 
+    @ApiOperation(value = "用户注册", notes = "用户注册")
+    @PostMapping("/register")
+    public ApiResult<UserInfo> register(@RequestBody RegistInfo registInfo) {
+        if(StringUtils.isEmpty(registInfo.userName)) {
+            return ApiResponse.makeRsp(-1,"用户名不能为空");
+        } else if(StringUtils.isEmpty(registInfo.password)) {
+            return ApiResponse.makeRsp(-1,"密码不能为空");
+        }
+
+       UserInfo exitUser = userInfoService.selectBy("userName",registInfo.userName);
+
+        if(exitUser != null) {
+            return ApiResponse.makeRsp(-1,"用户名已被注册");
+        }
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserName(registInfo.userName);
+        userInfo.setSalt(UUID.randomUUID().toString().substring(0,5));
+        userInfo.setPassword(GlobalUtils.getShiroPassword(registInfo.password,userInfo.getSalt()));
+        userInfoService.insert(userInfo);
+        return ApiResponse.makeOKRsp(userInfo);
+    }
+
     @ApiOperation(value = "用户登录", notes = "用户登录")
     @PostMapping("/login")
-    public ApiResult<UserInfo> login(@RequestBody UserInfo userInfo) {
+    public ApiResult<UserInfo> login(@RequestBody Login login) {
         Subject currentUser = SecurityUtils.getSubject();
         //登录
         try {
-            currentUser.login(new UsernamePasswordToken(userInfo.getUserName(), userInfo.getPassword()));
+            currentUser.login(new UsernamePasswordToken(login.userName, login.password));
         } catch (IncorrectCredentialsException i) {
             throw new ServiceException("密码输入错误");
         }

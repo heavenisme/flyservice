@@ -10,6 +10,4 @@ import java.util.List;
  * UserInfoDAO继承基类
  */
 public interface UserInfoDAO extends Mapper<UserInfo> {
-    List<UserInfo> selectAll(@Param("pageNumKey") int pageNum,
-                             @Param("pageSizeKey") int pageSize);
 }

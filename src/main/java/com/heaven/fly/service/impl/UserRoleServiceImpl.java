@@ -21,7 +21,7 @@ public class UserRoleServiceImpl extends AbsService<UserRole> implements UserRol
     @Resource
     private UserRoleMapper userRoleMapper;
 
-    public List<String> getRolesByUserId(String userId){
-        return userRoleMapper.getRolesByUserId(userId);
+    public List<String> getRolesByRolesId(String rolesId){
+        return userRoleMapper.getRolesByUserId(rolesId);
     }
 }

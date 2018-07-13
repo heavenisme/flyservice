@@ -6,5 +6,5 @@ import com.heaven.fly.model.UserRole;
 import java.util.List;
 
 public interface UserRoleMapper extends Mapper<UserRole> {
-    List<String> getRolesByUserId(String userId);
+    List<String> getRolesByUserId(String rolesId);
 }

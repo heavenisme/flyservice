@@ -74,7 +74,7 @@ public class ExcelController {
                 UserInfo userInfo = list.get(i);
                 List<Object> row = new ArrayList();
                 row.add(userInfo.getId());
-                row.add(userInfo.getUserName());
+                row.add(userInfo.getPhone());
                 row.add(userInfo.getPassword());
                 rows.add(row);
             }

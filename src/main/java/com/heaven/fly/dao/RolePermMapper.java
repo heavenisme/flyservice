@@ -6,5 +6,5 @@ import com.heaven.fly.model.RolePerm;
 import java.util.List;
 
 public interface RolePermMapper extends Mapper<RolePerm> {
-    List<String> getPermsByUserId(String userId);
+    List<String> getPermsByPermsId(String permsId);
 }

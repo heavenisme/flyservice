@@ -97,7 +97,7 @@ public class AspectLog {
             //大家可自行百度获取ip的方法
             systemLog.setRequestIp("192.168.1.104");
             systemLog.setParams(JSON.toJSONString(nameAndArgs));
-            systemLog.setUserId(getUserId());
+            systemLog.setUserId(getUserId()+"");
             systemLog.setCreateTime(new Date());
         }catch (Exception ex){
             logger.error("==异常通知异常==");
@@ -165,8 +165,8 @@ public class AspectLog {
         return methode;
     }
 
-    private static String getUserId() {
-        String userId = "";
+    private static int getUserId() {
+        int userId = 0;
         UserInfo userInfo = (UserInfo) SecurityUtils.getSubject().getPrincipal();
         if(userInfo != null){
             userId = userInfo.getId();

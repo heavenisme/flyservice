@@ -57,13 +57,13 @@ public class UserInfoController {
             return ApiResponse.makeRsp(-1,"密码不能为空");
         }
 
-       UserInfo exitUser = userInfoService.selectBy("userName",registInfo.userName);
+       UserInfo exitUser = userInfoService.selectBy("phone",registInfo.userName);
 
         if(exitUser != null) {
             return ApiResponse.makeRsp(-1,"用户名已被注册");
         }
         UserInfo userInfo = new UserInfo();
-        userInfo.setUserName(registInfo.userName);
+        userInfo.setPhone(registInfo.userName);
         userInfo.setSalt(UUID.randomUUID().toString().substring(0,5));
         userInfo.setPassword(GlobalUtils.getShiroPassword(registInfo.password,userInfo.getSalt()));
         userInfoService.insert(userInfo);

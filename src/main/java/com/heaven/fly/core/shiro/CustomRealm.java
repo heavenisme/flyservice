@@ -69,14 +69,14 @@ public class CustomRealm extends AuthorizingRealm {
         if (username == null) {
             throw new AccountException("Null usernames are not allowed by this realm.");
         }
-        UserInfo userDB = userService.selectBy("userName",username);
+        UserInfo userDB = userService.selectBy("phone",username);
         if (userDB == null) {
             throw new UnknownAccountException("No account found for admin [" + username + "]");
         }
         //查询用户的角色和权限存到SimpleAuthenticationInfo中，这样在其它地方
         //SecurityUtils.getSubject().getPrincipal()就能拿出用户的所有信息，包括角色和权限
-        List<String> roleList = userRoleService.getRolesByUserId(userDB.getId());
-        List<String> permList = rolePermService.getPermsByUserId(userDB.getId());
+        List<String> roleList = userRoleService.getRolesByRolesId(userDB.getRolesId());
+        List<String> permList = rolePermService.getPermsByPermsId(userDB.getPermsId());
         Set<String> roles = new HashSet(roleList);
         Set<String> perms = new HashSet(permList);
         userDB.setRoles(roles);

@@ -11,5 +11,5 @@ import java.util.List;
 * @date 2018/07/02 16:49
 */
 public interface RolePermService extends Service<RolePerm> {
-    List<String> getPermsByUserId(String userId);
+    List<String> getPermsByPermsId(String userId);
 }

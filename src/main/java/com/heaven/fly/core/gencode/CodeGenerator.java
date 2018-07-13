@@ -45,7 +45,7 @@ public class CodeGenerator {
      * @param args
      */
     public static void main(String[] args) {
-        genCode("sys_permission_init");
+        genCode("user_info");
     }
 
     /**

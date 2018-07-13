@@ -21,7 +21,7 @@ public class RolePermServiceImpl extends AbsService<RolePerm> implements RolePer
     @Resource
     private RolePermMapper rolePermMapper;
 
-    public List<String> getPermsByUserId(String userId){
-        return rolePermMapper.getPermsByUserId(userId);
+    public List<String> getPermsByPermsId(String permsId){
+        return rolePermMapper.getPermsByPermsId(permsId);
     }
 }

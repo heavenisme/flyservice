@@ -9,7 +9,7 @@
     <result column="perm_id" jdbcType="VARCHAR" property="permId" />
     <result column="role_id" jdbcType="VARCHAR" property="roleId" />
   </resultMap>
-  <select id="getPermsByUserId" resultType="string" parameterType="string">
+  <select id="getPermsByPermsId" resultType="string" parameterType="string">
     select distinct
         p.perm_value
     from

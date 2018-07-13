@@ -1,16 +1,13 @@
 package com.heaven.fly.service;
 
-import com.github.pagehelper.PageInfo;
-import com.heaven.fly.core.common.Service;
 import com.heaven.fly.model.UserInfo;
-
-import java.util.List;
+import com.heaven.fly.core.common.Service;
 
 /**
- * @Auther: heaven
- * @Date: 2018/6/19 17:41
- * @Description:
- */
-
+* @Description: UserInfoService接口
+* @author heaven
+* @date 2018/07/13 18:08
+*/
 public interface UserInfoService extends Service<UserInfo> {
+
 }

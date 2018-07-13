@@ -58,7 +58,7 @@ public class RolePermController {
     * @Description: 分页查询
     * @param page 页码
     * @param size 每页条数
-    * @Reutrn ApiResult<PageInfo<RolePerm>>
+    * @Reutrn ApiResult<PageRequestInfo<RolePerm>>
     */
     @PostMapping("/list")
     public ApiResult<PageInfo<RolePerm>> list(@RequestParam(defaultValue = "0") Integer page,

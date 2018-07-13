@@ -6,6 +6,7 @@ import com.heaven.fly.core.aop.AnnotationLog;
 import com.heaven.fly.core.api.ApiResponse;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.api.ServiceException;
+import com.heaven.fly.core.common.model.PageRequestInfo;
 import com.heaven.fly.model.UserInfo;
 import com.heaven.fly.service.UserInfoService;
 import io.swagger.annotations.Api;
@@ -66,12 +67,19 @@ public class UserInfoController {
         return ApiResponse.makeOKRsp(userInfo);
     }
 
-    @ApiOperation(value = "查询用户", notes = "分页查询用户所有")
+    @ApiOperation(value = "查询用户", notes = "查询用户所有")
     @PostMapping("/selectAll")
-    public ApiResult<List<UserInfo>> selectAll(@RequestParam(defaultValue = "0") Integer page,
-                                               @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<UserInfo> pageInfo = userInfoService.selectAll();
+    public ApiResult<List<UserInfo>> selectAll() {
+        List<UserInfo> userInfoList = userInfoService.selectAll();
+        return ApiResponse.makeOKRsp(userInfoList);
+    }
+
+    @ApiOperation(value = "查询用户", notes = "分页查询用户所有")
+    @PostMapping("/selectByPage")
+    public ApiResult<PageInfo<UserInfo>> selectByPage(@RequestBody PageRequestInfo pageRequestInfo) {
+        PageHelper.startPage(pageRequestInfo.page, pageRequestInfo.pageSize);
+        List<UserInfo> userInfoList = userInfoService.selectAll();
+        PageInfo<UserInfo> pageInfo = new PageInfo<>(userInfoList);
         return ApiResponse.makeOKRsp(pageInfo);
     }
 

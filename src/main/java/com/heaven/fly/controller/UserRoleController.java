@@ -58,7 +58,7 @@ public class UserRoleController {
     * @Description: 分页查询
     * @param page 页码
     * @param size 每页条数
-    * @Reutrn ApiResult<PageInfo<UserRole>>
+    * @Reutrn ApiResult<PageRequestInfo<UserRole>>
     */
     @PostMapping("/list")
     public ApiResult<PageInfo<UserRole>> list(@RequestParam(defaultValue = "0") Integer page,

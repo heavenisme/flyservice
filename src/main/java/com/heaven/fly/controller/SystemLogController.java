@@ -58,7 +58,7 @@ public class SystemLogController {
     * @Description: 分页查询
     * @param page 页码
     * @param size 每页条数
-    * @Reutrn ApiResult<PageInfo<SystemLog>>
+    * @Reutrn ApiResult<PageRequestInfo<SystemLog>>
     */
     @PostMapping("/list")
     public ApiResult<PageInfo<SystemLog>> list(@RequestParam(defaultValue = "0") Integer page,

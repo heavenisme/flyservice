@@ -58,7 +58,7 @@ public class SysPermissionInitController {
     * @Description: 分页查询
     * @param page 页码
     * @param size 每页条数
-    * @Reutrn ApiResult<PageInfo<SysPermissionInit>>
+    * @Reutrn ApiResult<PageRequestInfo<SysPermissionInit>>
     */
     @PostMapping("/list")
     public ApiResult<PageInfo<SysPermissionInit>> list(@RequestParam(defaultValue = "0") Integer page,

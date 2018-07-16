@@ -63,8 +63,9 @@ public class UserInfoController {
             return ApiResponse.makeRsp(-1,"用户名已被注册");
         }
         UserInfo userInfo = new UserInfo();
+        userInfo.setUserId(GlobalUtils.randomUUID());
         userInfo.setPhone(registInfo.userName);
-        userInfo.setSalt(UUID.randomUUID().toString().substring(0,5));
+        userInfo.setSalt(userInfo.getUserId().substring(0,5));
         userInfo.setPassword(GlobalUtils.getShiroPassword(registInfo.password,userInfo.getSalt()));
         userInfoService.insert(userInfo);
         return ApiResponse.makeOKRsp(userInfo);

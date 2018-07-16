@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 /**
 * @Description: UserInfoService接口实现类
 * @author heaven
-* @date 2018/07/13 18:08
+* @date 2018/07/16 16:50
 */
 @Service
 public class UserInfoServiceImpl extends AbsService<UserInfo> implements UserInfoService {

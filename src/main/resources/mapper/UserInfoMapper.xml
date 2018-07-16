@@ -11,6 +11,8 @@
     <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="roles_id" jdbcType="VARCHAR" property="rolesId" />
     <result column="perms_id" jdbcType="VARCHAR" property="permsId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
   </resultMap>
   <sql id="Base_Column_List">
       id,user_name

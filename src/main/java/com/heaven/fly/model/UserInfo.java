@@ -32,8 +32,6 @@ public class UserInfo {
 
     private String device;
 
-    private Integer uid;
-
     @Transient
     private List<SysRole> sysRoles;
     /**
@@ -188,20 +186,6 @@ public class UserInfo {
      */
     public void setDevice(String device) {
         this.device = device == null ? null : device.trim();
-    }
-
-    /**
-     * @return uid
-     */
-    public Integer getUid() {
-        return uid;
-    }
-
-    /**
-     * @param uid
-     */
-    public void setUid(Integer uid) {
-        this.uid = uid;
     }
 
     public List<SysRole> getSysRoles() {

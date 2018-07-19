@@ -6,6 +6,6 @@ package com.heaven.fly.model.reqmodel;
  * @Description:
  */
 public class RegistInfo {
-    public String userName;
+    public String userAccount;
     public String password;
 }

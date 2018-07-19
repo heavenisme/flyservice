@@ -51,22 +51,22 @@ public class UserInfoController {
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
-    @RequiresPermissions("userInfo:view")//权限管理;
+//    @RequiresPermissions("userInfo:view")//权限管理;
     public ApiResult<UserInfo> register(@RequestBody RegistInfo registInfo) {
-        if(StringUtils.isEmpty(registInfo.userName)) {
+        if(StringUtils.isEmpty(registInfo.userAccount)) {
             return ApiResponse.makeRsp(-1,"用户名不能为空");
         } else if(StringUtils.isEmpty(registInfo.password)) {
             return ApiResponse.makeRsp(-1,"密码不能为空");
         }
 
-       UserInfo exitUser = userInfoService.selectBy("phone",registInfo.userName);
+       UserInfo exitUser = userInfoService.selectBy("phone",registInfo.userAccount);
 
         if(exitUser != null) {
             return ApiResponse.makeRsp(-1,"用户名已被注册");
         }
         UserInfo userInfo = new UserInfo();
         userInfo.setUserId(GlobalUtils.randomUUID());
-        userInfo.setPhone(registInfo.userName);
+        userInfo.setPhone(registInfo.userAccount);
         userInfo.setSalt(userInfo.getUserId().substring(0,5));
         userInfo.setPassword(GlobalUtils.getShiroPassword(registInfo.password,userInfo.getSalt()));
         userInfoService.insert(userInfo);
@@ -75,7 +75,7 @@ public class UserInfoController {
 
     @ApiOperation(value = "用户登录", notes = "用户登录")
     @PostMapping("/login")
-    @RequiresPermissions("userInfo:add")//权限管理;
+//    @RequiresPermissions("userInfo:add")//权限管理;
     public ApiResult<UserInfo> login(@RequestBody Login login) {
         Subject currentUser = SecurityUtils.getSubject();
         //登录

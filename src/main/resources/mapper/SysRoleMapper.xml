@@ -13,7 +13,7 @@
   </resultMap>
 
   <!--根据用户id查询该用户所有角色-->
-  <select id="getRolesByRoleId">
+  <select id="getRolesByRoleId" resultMap="BaseResultMap">
     select * from (select * from sys_role sr where sr.role_id = #{role_id,jdbcType=NUMERIC}) ri
 	inner join sys_role_permission srp on ri.role_id = srp.role_id
 	inner join sys_permission sp on sp.perm_id = srp.permission_id

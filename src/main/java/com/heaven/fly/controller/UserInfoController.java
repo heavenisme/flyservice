@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,7 @@ public class UserInfoController {
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
+    @RequiresPermissions("userInfo:view")//权限管理;
     public ApiResult<UserInfo> register(@RequestBody RegistInfo registInfo) {
         if(StringUtils.isEmpty(registInfo.userName)) {
             return ApiResponse.makeRsp(-1,"用户名不能为空");
@@ -73,6 +75,7 @@ public class UserInfoController {
 
     @ApiOperation(value = "用户登录", notes = "用户登录")
     @PostMapping("/login")
+    @RequiresPermissions("userInfo:add")//权限管理;
     public ApiResult<UserInfo> login(@RequestBody Login login) {
         Subject currentUser = SecurityUtils.getSubject();
         //登录
@@ -90,6 +93,7 @@ public class UserInfoController {
     @ApiOperation(value = "查询用户", notes = "根据用户ID查询用户")
     @PostMapping("/selectById")
     @AnnotationLog(remark = "查询")
+    @RequiresPermissions("userInfo:del")//权限管理;
     public ApiResult<UserInfo> selectById(String id) {
         UserInfo userInfo = userInfoService.selectById(id);
         return ApiResponse.makeOKRsp(userInfo);
@@ -97,6 +101,7 @@ public class UserInfoController {
 
     @ApiOperation(value = "查询用户", notes = "查询用户所有")
     @PostMapping("/selectAll")
+    @RequiresPermissions("userInfo:del")//权限管理;
     public ApiResult<List<UserInfo>> selectAll() {
         List<UserInfo> userInfoList = userInfoService.selectAll();
         return ApiResponse.makeOKRsp(userInfoList);

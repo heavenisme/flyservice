@@ -1,9 +1,10 @@
 package com.heaven.fly.core.shiro;
 
+import com.heaven.fly.model.SysPermission;
+import com.heaven.fly.model.SysRole;
 import com.heaven.fly.model.UserInfo;
-import com.heaven.fly.service.RolePermService;
+import com.heaven.fly.service.SysRoleService;
 import com.heaven.fly.service.UserInfoService;
-import com.heaven.fly.service.UserRoleService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationException;
@@ -27,9 +28,7 @@ public class CustomRealm extends AuthorizingRealm {
     @Autowired
     private UserInfoService userService;
     @Autowired
-    private UserRoleService userRoleService;
-    @Autowired
-    private RolePermService rolePermService;
+    private SysRoleService sysRoleService;
 
     /**
      * 告诉shiro如何根据获取到的用户信息中的密码和盐值来校验密码
@@ -52,11 +51,16 @@ public class CustomRealm extends AuthorizingRealm {
         if (principals == null) {
             throw new AuthorizationException("PrincipalCollection method argument cannot be null.");
         }
-        UserInfo user = (UserInfo) getAvailablePrincipal(principals);
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.setRoles(user.getRoles());
-        info.setStringPermissions(user.getPerms());
-        return info;
+        UserInfo userInfo = (UserInfo) getAvailablePrincipal(principals);
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+
+        for(SysRole role:userInfo.getSysRoles()){
+            authorizationInfo.addRole(role.getRole());
+            for(SysPermission p:role.getSysPermissions()){
+                authorizationInfo.addStringPermission(p.getPermission());
+            }
+        }
+        return authorizationInfo;
     }
 
     /**
@@ -75,12 +79,8 @@ public class CustomRealm extends AuthorizingRealm {
         }
         //查询用户的角色和权限存到SimpleAuthenticationInfo中，这样在其它地方
         //SecurityUtils.getSubject().getPrincipal()就能拿出用户的所有信息，包括角色和权限
-        List<String> roleList = userRoleService.getRolesByRolesId(userDB.getRolesId());
-        List<String> permList = rolePermService.getPermsByPermsId(userDB.getPermsId());
-        Set<String> roles = new HashSet(roleList);
-        Set<String> perms = new HashSet(permList);
-        userDB.setRoles(roles);
-        userDB.setPerms(perms);
+        List<SysRole> sysRoles = sysRoleService.getRolesByRoleId(userDB.getRoleUid());
+        userDB.setSysRoles(sysRoles);
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(userDB, userDB.getPassword(), getName());
         info.setCredentialsSalt(ByteSource.Util.bytes(userDB.getSalt()));

@@ -165,11 +165,11 @@ public class AspectLog {
         return methode;
     }
 
-    private static int getUserId() {
-        int userId = 0;
+    private static String getUserId() {
+        String userId = null;
         UserInfo userInfo = (UserInfo) SecurityUtils.getSubject().getPrincipal();
         if(userInfo != null){
-            userId = userInfo.getId();
+            userId = userInfo.getUserId();
         }
         return userId;
     }

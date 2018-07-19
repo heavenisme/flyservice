@@ -1,59 +1,53 @@
 package com.heaven.fly.model;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.*;
 
 @Table(name = "user_info")
-public class UserInfo implements Serializable {
+public class UserInfo {
     @Id
-    private Integer id;
+    @Column(name = "user_id")
+    private String userId;
 
     private String phone;
+
+    private String name;
+
+    private String username;
 
     private String password;
 
     private String salt;
 
-    /**
-     * 角色
-     */
-    @Column(name = "roles_id")
-    private String rolesId;
+    private Byte state;
 
-    @Column(name = "perms_id")
-    private String permsId;
+    @Column(name = "role_uid")
+    private Integer roleUid;
 
-    @Column(name = "user_id")
-    private String userId;
+    private String token;
 
     @Column(name = "login_time")
     private Date loginTime;
 
-    /**
-     * 用户所有角色值，用于shiro做角色权限的判断
-     */
-    @Transient
-    private Set<String> roles;
+    private String device;
 
-    /**
-     * 用户所有权限值，用于shiro做资源权限的判断
-     */
+    private Integer uid;
+
     @Transient
-    private Set<String> perms;
+    private List<SysRole> sysRoles;
     /**
-     * @return id
+     * @return user_id
      */
-    public Integer getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
     /**
-     * @param id
+     * @param userId
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
     /**
@@ -68,6 +62,34 @@ public class UserInfo implements Serializable {
      */
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
+    }
+
+    /**
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    /**
+     * @return username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username
+     */
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     /**
@@ -99,49 +121,45 @@ public class UserInfo implements Serializable {
     }
 
     /**
-     * 获取角色
-     *
-     * @return roles_id - 角色
+     * @return state
      */
-    public String getRolesId() {
-        return rolesId;
+    public Byte getState() {
+        return state;
     }
 
     /**
-     * 设置角色
-     *
-     * @param rolesId 角色
+     * @param state
      */
-    public void setRolesId(String rolesId) {
-        this.rolesId = rolesId == null ? null : rolesId.trim();
+    public void setState(Byte state) {
+        this.state = state;
     }
 
     /**
-     * @return perms_id
+     * @return role_uid
      */
-    public String getPermsId() {
-        return permsId;
+    public Integer getRoleUid() {
+        return roleUid;
     }
 
     /**
-     * @param permsId
+     * @param roleUid
      */
-    public void setPermsId(String permsId) {
-        this.permsId = permsId == null ? null : permsId.trim();
+    public void setRoleUid(Integer roleUid) {
+        this.roleUid = roleUid;
     }
 
     /**
-     * @return user_id
+     * @return token
      */
-    public String getUserId() {
-        return userId;
+    public String getToken() {
+        return token;
     }
 
     /**
-     * @param userId
+     * @param token
      */
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
     }
 
     /**
@@ -158,19 +176,39 @@ public class UserInfo implements Serializable {
         this.loginTime = loginTime;
     }
 
-    public Set<String> getRoles() {
-        return roles;
+    /**
+     * @return device
+     */
+    public String getDevice() {
+        return device;
     }
 
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
+    /**
+     * @param device
+     */
+    public void setDevice(String device) {
+        this.device = device == null ? null : device.trim();
     }
 
-    public Set<String> getPerms() {
-        return perms;
+    /**
+     * @return uid
+     */
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setPerms(Set<String> perms) {
-        this.perms = perms;
+    /**
+     * @param uid
+     */
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public List<SysRole> getSysRoles() {
+        return sysRoles;
+    }
+
+    public void setSysRoles(List<SysRole> sysRoles) {
+        this.sysRoles = sysRoles;
     }
 }

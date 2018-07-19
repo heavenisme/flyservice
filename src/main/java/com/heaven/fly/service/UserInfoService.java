@@ -6,7 +6,7 @@ import com.heaven.fly.core.common.Service;
 /**
 * @Description: UserInfoService接口
 * @author heaven
-* @date 2018/07/16 16:50
+* @date 2018/07/18 17:46
 */
 public interface UserInfoService extends Service<UserInfo> {
 

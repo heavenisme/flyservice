@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heaven.fly.dao.SysRoleDAO">
+<mapper namespace="com.heaven.fly.dao.SysRoleMapper">
   <resultMap id="BaseResultMap" type="com.heaven.fly.model.SysRole">
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
-    <result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
-    <result column="role_value" jdbcType="VARCHAR" property="roleValue" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="is_disable" jdbcType="INTEGER" property="isDisable" />
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="available" jdbcType="BIT" property="available" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="id" jdbcType="INTEGER" property="id" />
   </resultMap>
+
+  <!--根据用户id查询该用户所有角色-->
+  <select id="getRolesByRoleId">
+    select * from (select * from sys_role sr where sr.role_id = #{role_id,jdbcType=NUMERIC}) ri
+	inner join sys_role_permission srp on ri.role_id = srp.role_id
+	inner join sys_permission sp on sp.perm_id = srp.permission_id
+  </select>
 </mapper>

@@ -3,11 +3,10 @@ package com.heaven.fly.controller;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.api.ApiResponse;
 import com.heaven.fly.core.utils.GlobalUtils;
-import com.heaven.fly.model.RolePerm;
-import com.heaven.fly.service.RolePermService;
+import com.heaven.fly.model.SysPermission;
+import com.heaven.fly.service.SysPermissionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,55 +16,53 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* @Description: RolePermController类
+* @Description: SysPermissionController类
 * @author heaven
-* @date 2018/07/02 16:49
+* @date 2018/07/18 17:46
 */
 @RestController
-@RequestMapping("/rolePerm")
-@Api(tags = {"角色权限管理"}, description = "RolePermController")
-public class RolePermController {
+@RequestMapping("/sysPermission")
+public class SysPermissionController {
 
     @Resource
-    private RolePermService rolePermService;
+    private SysPermissionService sysPermissionService;
 
     @PostMapping("/insert")
-    public ApiResult<Integer> insert(RolePerm rolePerm) throws Exception{
-        rolePerm.setId(GlobalUtils.getUUID());
-        Integer state = rolePermService.insert(rolePerm);
+    public ApiResult<Integer> insert(SysPermission sysPermission) throws Exception{
+        Integer state = sysPermissionService.insert(sysPermission);
         return ApiResponse.makeOKRsp(state);
     }
 
 
     @PostMapping("/deleteById")
     public ApiResult<Integer> deleteById(@RequestParam String id) throws Exception {
-            Integer state = rolePermService.deleteById(id);
+            Integer state = sysPermissionService.deleteById(id);
             return ApiResponse.makeOKRsp(state);
     }
 
     @PostMapping("/update")
-    public ApiResult<Integer> update(RolePerm rolePerm) throws Exception {
-            Integer state = rolePermService.update(rolePerm);
+    public ApiResult<Integer> update(SysPermission sysPermission) throws Exception {
+            Integer state = sysPermissionService.update(sysPermission);
             return ApiResponse.makeOKRsp(state);
     }
 
     @PostMapping("/selectById")
-    public ApiResult<RolePerm> selectById(@RequestParam String id) throws Exception {
-            RolePerm rolePerm = rolePermService.selectById(id);
-             return ApiResponse.makeOKRsp(rolePerm);
+    public ApiResult<SysPermission> selectById(@RequestParam String id) throws Exception {
+            SysPermission sysPermission = sysPermissionService.selectById(id);
+             return ApiResponse.makeOKRsp(sysPermission);
     }
     /**
     * @Description: 分页查询
     * @param page 页码
     * @param size 每页条数
-    * @Reutrn ApiResult<PageRequestInfo<RolePerm>>
+    * @Reutrn ApiResult<PageInfo<SysPermission>>
     */
     @PostMapping("/list")
-    public ApiResult<PageInfo<RolePerm>> list(@RequestParam(defaultValue = "0") Integer page,
+    public ApiResult<PageInfo<SysPermission>> list(@RequestParam(defaultValue = "0") Integer page,
         @RequestParam(defaultValue = "0") Integer size) throws Exception {
         PageHelper.startPage(page, size);
-        List<RolePerm> list = rolePermService.selectAll();
-        PageInfo<RolePerm> pageInfo = new PageInfo<RolePerm>(list);
+        List<SysPermission> list = sysPermissionService.selectAll();
+        PageInfo<SysPermission> pageInfo = new PageInfo<SysPermission>(list);
         return ApiResponse.makeOKRsp(pageInfo);
     }
  }

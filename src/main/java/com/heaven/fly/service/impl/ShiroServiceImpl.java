@@ -1,8 +1,7 @@
 package com.heaven.fly.service.impl;
 
-import com.heaven.fly.model.SysPermissionInit;
+import com.heaven.fly.model.SysPermission;
 import com.heaven.fly.service.ShiroService;
-import com.heaven.fly.service.SysPermissionInitService;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
@@ -21,7 +20,7 @@ public class ShiroServiceImpl implements ShiroService {
     ShiroFilterFactoryBean shiroFilterFactoryBean;
 
     @Autowired
-    SysPermissionInitService sysPermissionInitService;
+    SysPermissionServiceImpl sysPermissionServiceImpl;
 
     /**
      * 初始化权限
@@ -30,10 +29,10 @@ public class ShiroServiceImpl implements ShiroService {
     public Map<String, String> loadFilterChainDefinitions() {
         // 权限控制map.从数据库获取
         Map<String, String> filterChainDefinitionMap = new HashMap<>();
-        List<SysPermissionInit> list = sysPermissionInitService.selectAllOrderBySort();
-        for (SysPermissionInit sysPermissionInit : list) {
-            filterChainDefinitionMap.put(sysPermissionInit.getUrl(),
-                    sysPermissionInit.getPermissionInit());
+        List<SysPermission> list = sysPermissionServiceImpl.selectAll();
+        for (SysPermission sysPermission : list) {
+            filterChainDefinitionMap.put(sysPermission.getUrl(),
+                    sysPermission.getPermission());
         }
         return filterChainDefinitionMap;
     }

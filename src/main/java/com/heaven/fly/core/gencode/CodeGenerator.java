@@ -69,8 +69,8 @@ public class CodeGenerator {
      */
     public static void genCode(String tableName) {
         genModelAndMapper(tableName);
-//        genService(tableName);
-//        genController(tableName);
+        genService(tableName);
+        genController(tableName);
     }
 
     public static void genModelAndMapper(String tableName) {

@@ -10,6 +10,19 @@
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="id" jdbcType="INTEGER" property="id" />
+
+    <!--文章集合 -->
+    <collection property="sysPermissions" ofType="com.heaven.fly.model.SysPermission">
+      <id column="perm_id" jdbcType="INTEGER" property="permId" />
+      <result column="available" jdbcType="BIT" property="available" />
+      <result column="name" jdbcType="VARCHAR" property="name" />
+      <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+      <result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
+      <result column="permission" jdbcType="VARCHAR" property="permission" />
+      <result column="resource_type" jdbcType="CHAR" property="resourceType" />
+      <result column="url" jdbcType="VARCHAR" property="url" />
+      <result column="id" jdbcType="INTEGER" property="id" />
+    </collection>
   </resultMap>
 
   <!--根据用户id查询该用户所有角色-->

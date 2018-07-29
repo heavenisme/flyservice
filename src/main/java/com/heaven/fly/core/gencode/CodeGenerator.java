@@ -26,8 +26,8 @@ public class CodeGenerator {
     private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
     // 模板位置
     private static final String TEMPLATE_FILE_PATH = "src/test/java/resources/template/generator";
-    private static final String JAVA_PATH = "src/main/java"; // java文件路径
-    private static final String RESOURCES_PATH = "src/main/resources";// 资源文件路径
+    private static final String JAVA_PATH = "src/test/java"; // java文件路径
+    private static final String RESOURCES_PATH = "src/test/resources";// 资源文件路径
     // 生成的Service存放路径
     private static final String PACKAGE_PATH_SERVICE = packageConvertPath(ProjectConstant.SERVICE_PACKAGE);
     // 生成的Service实现存放路径

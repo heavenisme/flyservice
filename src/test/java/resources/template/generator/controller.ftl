@@ -29,7 +29,7 @@ public class ${modelNameUpperCamel}Controller {
 
     @PostMapping("/insert")
     public ApiResult<Integer> insert(${modelNameUpperCamel} ${modelNameLowerCamel}) throws Exception{
-        ${modelNameLowerCamel}.setId(GlobalUtils.getUUID());
+        <#--${modelNameLowerCamel}.setId(GlobalUtils.getUUID());-->
         Integer state = ${modelNameLowerCamel}Service.insert(${modelNameLowerCamel});
         return ApiResponse.makeOKRsp(state);
     }

@@ -51,7 +51,6 @@ public class UserInfoController {
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
-//    @RequiresPermissions("userInfo:view")//权限管理;
     public ApiResult<UserInfo> register(@RequestBody RegistInfo registInfo) {
         if(StringUtils.isEmpty(registInfo.userAccount)) {
             return ApiResponse.makeRsp(-1,"用户名不能为空");
@@ -69,13 +68,16 @@ public class UserInfoController {
         userInfo.setPhone(registInfo.userAccount);
         userInfo.setSalt(userInfo.getUserId().substring(0,5));
         userInfo.setPassword(GlobalUtils.getShiroPassword(registInfo.password,userInfo.getSalt()));
+        userInfo.setToken(GlobalUtils.randomUUID());
         userInfoService.insert(userInfo);
-        return ApiResponse.makeOKRsp(userInfo);
+        Login login = new Login();
+        login.userName = registInfo.userAccount;
+        login.password = registInfo.password;
+        return login(login);
     }
 
     @ApiOperation(value = "用户登录", notes = "用户登录")
     @PostMapping("/login")
-//    @RequiresPermissions("userInfo:add")//权限管理;
     public ApiResult<UserInfo> login(@RequestBody Login login) {
         Subject currentUser = SecurityUtils.getSubject();
         //登录

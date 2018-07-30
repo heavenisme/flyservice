@@ -7,6 +7,7 @@ import com.heaven.fly.core.api.ApiResponse;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.api.ServiceException;
 import com.heaven.fly.core.common.model.PageRequestInfo;
+import com.heaven.fly.core.language.LanguageMessage;
 import com.heaven.fly.core.utils.GlobalUtils;
 import com.heaven.fly.model.UserInfo;
 import com.heaven.fly.model.reqmodel.Login;
@@ -19,6 +20,8 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,6 +37,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 
@@ -47,21 +51,26 @@ import java.util.UUID;
 @Api(tags = {"用户操作接口"}, description = "userInfoControler")
 public class UserInfoController {
     @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
     private UserInfoService userInfoService;
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
     public ApiResult<UserInfo> register(@RequestBody RegistInfo registInfo) {
         if(StringUtils.isEmpty(registInfo.userAccount)) {
-            return ApiResponse.makeRsp(-1,"用户名不能为空");
+            return ApiResponse.makeRsp(-1,LanguageMessage.getMessage("register_error"));
         } else if(StringUtils.isEmpty(registInfo.password)) {
-            return ApiResponse.makeRsp(-1,"密码不能为空");
+            Locale locale = LocaleContextHolder.getLocale();
+            return ApiResponse.makeRsp(-1,LanguageMessage.getMessage("register_error1"));
         }
+
 
        UserInfo exitUser = userInfoService.selectBy("phone",registInfo.userAccount);
 
         if(exitUser != null) {
-            return ApiResponse.makeRsp(-1,"用户名已被注册");
+            return ApiResponse.makeRsp(-1,LanguageMessage.getMessage("register_error2"));
         }
         UserInfo userInfo = new UserInfo();
         userInfo.setUserId(GlobalUtils.randomUUID());

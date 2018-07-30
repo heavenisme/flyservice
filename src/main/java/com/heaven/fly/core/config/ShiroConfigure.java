@@ -1,8 +1,10 @@
 package com.heaven.fly.core.config;
 import com.heaven.fly.core.shiro.CustomRealm;
 import com.heaven.fly.model.SysPermission;
+import com.heaven.fly.model.SysUrlPermission;
 import com.heaven.fly.service.SysPermissionService;
 import com.heaven.fly.service.impl.SysPermissionServiceImpl;
+import com.heaven.fly.service.impl.SysUrlPermissionServiceImpl;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
@@ -22,7 +24,7 @@ import java.util.List;
 public class ShiroConfigure {
 
     @Resource
-    private SysPermissionServiceImpl sysPermissionInitService;
+    private SysUrlPermissionServiceImpl sysUrlPermissionServiceImpl;
 
     /**
      * 注入自定义的realm，告诉shiro如何获取用户信息来做登录或权限控制
@@ -51,11 +53,11 @@ public class ShiroConfigure {
     @Bean
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chain = new DefaultShiroFilterChainDefinition();
-        List<SysPermission> list = sysPermissionInitService.selectAll();
-//        for(int i = 0,length = list.size();i<length;i++){
-//            SysPermission sysPermissionInit = list.get(i);
-//            chain.addPathDefinition(sysPermissionInit.getUrl(), sysPermissionInit.getPermission());
-//        }
+        List<SysUrlPermission> list = sysUrlPermissionServiceImpl.selectAll();
+        for(int i = 0,length = list.size();i<length;i++){
+            SysUrlPermission sysUrlPermission = list.get(i);
+            chain.addPathDefinition(sysUrlPermission.getUrl(), sysUrlPermission.getPermission());
+        }
         return chain;
     }
 }

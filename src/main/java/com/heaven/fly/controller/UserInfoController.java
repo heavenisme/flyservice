@@ -62,7 +62,6 @@ public class UserInfoController {
         if(StringUtils.isEmpty(registInfo.userAccount)) {
             return ApiResponse.makeRsp(-1,LanguageMessage.getMessage("register_error"));
         } else if(StringUtils.isEmpty(registInfo.password)) {
-            Locale locale = LocaleContextHolder.getLocale();
             return ApiResponse.makeRsp(-1,LanguageMessage.getMessage("register_error1"));
         }
 

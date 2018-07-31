@@ -63,7 +63,7 @@ public class LanguageMessage {
     private static String getMessages(MessageSource messageSource,String result, Object[] params) {
         String message = "";
         try {
-            Locale locale = LocaleContextHolder.getLocale();
+            Locale locale = LocaleContextHolder.getLocale();//new Locale("en", "US");//LocaleContextHolder.getLocale();
             message = messageSource.getMessage(result, params, locale);
             logger.error(message);
         } catch (Exception e) {

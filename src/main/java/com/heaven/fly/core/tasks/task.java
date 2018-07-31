@@ -15,11 +15,11 @@ public class task {
 
     @Scheduled(fixedRate = 5000)
     public void job1(){
-        System.out.println("定时任务1" + new Date());
+//        System.out.println("定时任务1" + new Date());
     }
 
     @Scheduled(cron = "0/5 * * * * ?")
     public void job2(){
-        System.out.println("定时任务2" + new Date());
+//        System.out.println("定时任务2" + new Date());
     }
 }

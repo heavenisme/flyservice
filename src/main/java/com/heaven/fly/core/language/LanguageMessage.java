@@ -18,8 +18,10 @@ import java.util.Locale;
 public class LanguageMessage {
     static Logger logger = LoggerFactory.getLogger(LanguageMessage.class);
 
-    @Autowired
-    private static MessageSource messageSource;
+//    @Autowired
+//    private static MessageSource messageSource;
+
+   static ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 
     /**
      * 国际化
@@ -50,7 +52,7 @@ public class LanguageMessage {
      * @return
      */
     public static String getMessages(String result, Object[] params) {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+
         messageSource.setCacheSeconds(-1);
         messageSource.setDefaultEncoding(StandardCharsets.UTF_8.name());
         messageSource.setBasenames("/messages/messages");

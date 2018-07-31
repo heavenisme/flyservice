@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -89,11 +90,13 @@ public class UserInfoController {
     public ApiResult<UserInfo> login(@RequestBody Login login) {
         Subject currentUser = SecurityUtils.getSubject();
         //登录
-        try {
+//        try {
             currentUser.login(new UsernamePasswordToken(login.userName, login.password));
-        } catch (IncorrectCredentialsException i) {
-            throw new ServiceException("密码输入错误");
-        }
+//        } catch (IncorrectCredentialsException i) {
+//            throw new ServiceException("密码输入错误");
+//        } catch (AuthenticationException autherror) {
+//            throw new ServiceException("密码输入错误");
+//        }
         //从session取出用户信息
         UserInfo user = (UserInfo) currentUser.getPrincipal();
         return ApiResponse.makeOKRsp(user);

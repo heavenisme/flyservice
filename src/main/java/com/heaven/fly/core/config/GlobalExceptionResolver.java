@@ -3,9 +3,11 @@ package com.heaven.fly.core.config;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.heaven.fly.core.api.ApiCode;
-import com.heaven.fly.core.api.ApiConst;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.api.ServiceException;
+import com.heaven.fly.core.language.LanguageMessage;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.slf4j.Logger;
@@ -25,19 +27,35 @@ import java.io.IOException;
 public class GlobalExceptionResolver {
     private final Logger logger = LoggerFactory.getLogger(GlobalExceptionResolver.class);
 
+    @ExceptionHandler(AuthenticationException.class)
+    public void page300(HttpServletResponse response) {
+        ApiResult<Object> result = new ApiResult<>();
+        result.setCode(ApiCode.LOGIN_FAIL).setMsg(LanguageMessage.getMessage("login_error1")).setData(null);
+        responseResult(response, result);
+    }
+
+    @ExceptionHandler(IncorrectCredentialsException.class)
+    public void page3001(HttpServletResponse response) {
+        ApiResult<Object> result = new ApiResult<>();
+        result.setCode(ApiCode.LOGIN_FAIL).setMsg(LanguageMessage.getMessage("login_error2")).setData(null);
+        responseResult(response, result);
+    }
+
     @ExceptionHandler(UnauthenticatedException.class)
     public void page401(HttpServletResponse response, UnauthenticatedException e) {
         ApiResult<Object> result = new ApiResult<>();
-        result.setCode(ApiCode.UNAUTHEN).setMsg(ApiConst.UNLOGIN).setData(null);
+        result.setCode(ApiCode.UNAUTHEN).setMsg(LanguageMessage.getMessage("login_error3")).setData(null);
         responseResult(response, result);
     }
 
     @ExceptionHandler(UnauthorizedException.class)
     public void page403(HttpServletResponse response) {
         ApiResult<Object> result = new ApiResult<>();
-        result.setCode(ApiCode.UNAUTHZ).setMsg(ApiConst.UNAUTHZ).setData(null);
+        result.setCode(ApiCode.UNAUTHZ).setMsg(LanguageMessage.getMessage("auth_error")).setData(null);
         responseResult(response, result);
     }
+
+
     /**
      * 业务异常的处理
      */
@@ -53,7 +71,7 @@ public class GlobalExceptionResolver {
     @ExceptionHandler(value = Exception.class)
     public void exceptionHandler(HttpServletResponse response, Exception e) {
         ApiResult<Object> result = new ApiResult<>();
-        result.setCode(ApiCode.INTERNAL_SERVER_ERROR).setMsg(ApiConst.SERVERERR);
+        result.setCode(ApiCode.INTERNAL_SERVER_ERROR).setMsg(LanguageMessage.getMessage("server_error"));
         logger.error(e.getMessage(), e);
         responseResult(response, result);
     }

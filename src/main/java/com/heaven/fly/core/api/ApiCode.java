@@ -6,6 +6,8 @@ package com.heaven.fly.core.api;
  * @Description:
  */
 public enum ApiCode {
+    LOGIN_FAIL(100),
+
     // 成功
     SUCCESS(200),
 

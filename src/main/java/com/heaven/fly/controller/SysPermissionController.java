@@ -2,8 +2,7 @@ package com.heaven.fly.controller;
 
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.api.ApiResponse;
-import com.heaven.fly.core.utils.GlobalUtils;
-import com.heaven.fly.model.SysPermission;
+import com.heaven.fly.model.sys.SysPermission;
 import com.heaven.fly.service.SysPermissionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

@@ -3,7 +3,7 @@ package com.heaven.fly.controller;
 import com.heaven.fly.core.api.ApiResult;
 import com.heaven.fly.core.api.ApiResponse;
 import com.heaven.fly.core.utils.GlobalUtils;
-import com.heaven.fly.model.SystemLog;
+import com.heaven.fly.model.sys.SystemLog;
 import com.heaven.fly.service.SystemLogService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

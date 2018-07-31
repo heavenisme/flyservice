@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.heaven.fly.dao.SysRoleMapper">
-  <resultMap id="BaseResultMap" type="com.heaven.fly.model.SysRole">
+  <resultMap id="BaseResultMap" type="com.heaven.fly.model.sys.SysRole">
     <!--
       WARNING - @mbg.generated
     -->
@@ -12,7 +12,7 @@
     <result column="id" jdbcType="INTEGER" property="id" />
 
     <!--文章集合 -->
-    <collection property="sysPermissions" ofType="com.heaven.fly.model.SysPermission">
+    <collection property="sysPermissions" ofType="com.heaven.fly.model.sys.SysPermission">
       <id column="perm_id" jdbcType="INTEGER" property="permId" />
       <result column="available" jdbcType="BIT" property="available" />
       <result column="name" jdbcType="VARCHAR" property="name" />

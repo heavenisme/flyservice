@@ -1,6 +1,6 @@
 package com.heaven.fly.core.systemlog;
 
-import com.heaven.fly.model.SystemLog;
+import com.heaven.fly.model.sys.SystemLog;
 import com.heaven.fly.service.SystemLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

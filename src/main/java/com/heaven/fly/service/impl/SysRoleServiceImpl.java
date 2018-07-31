@@ -1,11 +1,10 @@
 package com.heaven.fly.service.impl;
 
 import com.heaven.fly.dao.SysRoleMapper;
-import com.heaven.fly.model.SysRole;
+import com.heaven.fly.model.sys.SysRole;
 import com.heaven.fly.service.SysRoleService;
 import com.heaven.fly.core.common.AbsService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;

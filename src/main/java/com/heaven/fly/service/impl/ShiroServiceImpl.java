@@ -1,6 +1,6 @@
 package com.heaven.fly.service.impl;
 
-import com.heaven.fly.model.SysPermission;
+import com.heaven.fly.model.sys.SysPermission;
 import com.heaven.fly.service.ShiroService;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;

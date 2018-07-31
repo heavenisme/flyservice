@@ -1,6 +1,6 @@
 package com.heaven.fly.service;
 
-import com.heaven.fly.model.SystemLog;
+import com.heaven.fly.model.sys.SystemLog;
 import com.heaven.fly.core.common.Service;
 
 import java.util.List;

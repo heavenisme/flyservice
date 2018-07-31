@@ -1,6 +1,6 @@
 package com.heaven.fly.service;
 
-import com.heaven.fly.model.SysPermission;
+import com.heaven.fly.model.sys.SysPermission;
 import com.heaven.fly.core.common.Service;
 
 /**

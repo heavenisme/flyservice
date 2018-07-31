@@ -1,7 +1,7 @@
 package com.heaven.fly.core.shiro;
 
-import com.heaven.fly.model.SysPermission;
-import com.heaven.fly.model.SysRole;
+import com.heaven.fly.model.sys.SysPermission;
+import com.heaven.fly.model.sys.SysRole;
 import com.heaven.fly.model.UserInfo;
 import com.heaven.fly.service.SysRoleService;
 import com.heaven.fly.service.UserInfoService;
@@ -15,9 +15,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @Auther: heaven

@@ -1,6 +1,6 @@
 package com.heaven.fly.core.systemlog;
 
-import com.heaven.fly.model.SystemLog;
+import com.heaven.fly.model.sys.SystemLog;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.BlockingQueue;

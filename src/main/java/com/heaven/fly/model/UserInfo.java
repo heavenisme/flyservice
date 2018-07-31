@@ -1,5 +1,7 @@
 package com.heaven.fly.model;
 
+import com.heaven.fly.model.sys.SysRole;
+
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;

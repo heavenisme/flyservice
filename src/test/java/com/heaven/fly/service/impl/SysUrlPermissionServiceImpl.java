@@ -1,11 +1,10 @@
 package com.heaven.fly.service.impl;
 
 import com.heaven.fly.dao.SysUrlPermissionMapper;
-import com.heaven.fly.model.SysUrlPermission;
+import com.heaven.fly.model.sys.SysUrlPermission;
 import com.heaven.fly.service.SysUrlPermissionService;
 import com.heaven.fly.core.common.AbsService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 

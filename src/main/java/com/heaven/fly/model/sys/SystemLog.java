@@ -1,4 +1,4 @@
-package com.heaven.fly.model;
+package com.heaven.fly.model.sys;
 
 import java.util.Date;
 import javax.persistence.*;

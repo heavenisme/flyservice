@@ -1,9 +1,6 @@
 package com.heaven.fly.core.config;
 import com.heaven.fly.core.shiro.CustomRealm;
-import com.heaven.fly.model.SysPermission;
-import com.heaven.fly.model.SysUrlPermission;
-import com.heaven.fly.service.SysPermissionService;
-import com.heaven.fly.service.impl.SysPermissionServiceImpl;
+import com.heaven.fly.model.sys.SysUrlPermission;
 import com.heaven.fly.service.impl.SysUrlPermissionServiceImpl;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;

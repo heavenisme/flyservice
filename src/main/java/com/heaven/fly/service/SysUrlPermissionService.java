@@ -1,7 +1,7 @@
 package com.heaven.fly.service;
 
 import com.heaven.fly.core.common.Service;
-import com.heaven.fly.model.SysUrlPermission;
+import com.heaven.fly.model.sys.SysUrlPermission;
 
 /**
 * @Description: SysUrlPermissionService接口

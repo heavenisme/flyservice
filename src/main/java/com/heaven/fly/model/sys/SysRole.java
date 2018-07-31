@@ -1,4 +1,4 @@
-package com.heaven.fly.model;
+package com.heaven.fly.model.sys;
 
 import javax.persistence.*;
 import java.util.List;

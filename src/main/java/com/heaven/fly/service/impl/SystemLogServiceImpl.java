@@ -1,11 +1,10 @@
 package com.heaven.fly.service.impl;
 
 import com.heaven.fly.dao.SystemLogMapper;
-import com.heaven.fly.model.SystemLog;
+import com.heaven.fly.model.sys.SystemLog;
 import com.heaven.fly.service.SystemLogService;
 import com.heaven.fly.core.common.AbsService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;

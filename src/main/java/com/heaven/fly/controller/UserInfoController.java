@@ -52,31 +52,28 @@ import java.util.UUID;
 @Api(tags = {"用户操作接口"}, description = "userInfoControler")
 public class UserInfoController {
     @Autowired
-    private MessageSource messageSource;
-
-    @Autowired
     private UserInfoService userInfoService;
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
     public ApiResult<UserInfo> register(@RequestBody RegistInfo registInfo) {
-        if(StringUtils.isEmpty(registInfo.userAccount)) {
-            return ApiResponse.makeRsp(-1,LanguageMessage.getMessage("register_error"));
-        } else if(StringUtils.isEmpty(registInfo.password)) {
-            return ApiResponse.makeRsp(-1,LanguageMessage.getMessage("register_error1"));
+        if (StringUtils.isEmpty(registInfo.userAccount)) {
+            return ApiResponse.makeRsp(-1, LanguageMessage.getMessage("register_error"));
+        } else if (StringUtils.isEmpty(registInfo.password)) {
+            return ApiResponse.makeRsp(-1, LanguageMessage.getMessage("register_error1"));
         }
 
 
-       UserInfo exitUser = userInfoService.selectBy("phone",registInfo.userAccount);
+        UserInfo exitUser = userInfoService.selectBy("phone", registInfo.userAccount);
 
-        if(exitUser != null) {
-            return ApiResponse.makeRsp(-1,LanguageMessage.getMessage("register_error2"));
+        if (exitUser != null) {
+            return ApiResponse.makeRsp(-1, LanguageMessage.getMessage("register_error2"));
         }
         UserInfo userInfo = new UserInfo();
         userInfo.setUserId(GlobalUtils.randomUUID());
         userInfo.setPhone(registInfo.userAccount);
-        userInfo.setSalt(userInfo.getUserId().substring(0,5));
-        userInfo.setPassword(GlobalUtils.getShiroPassword(registInfo.password,userInfo.getSalt()));
+        userInfo.setSalt(userInfo.getUserId().substring(0, 5));
+        userInfo.setPassword(GlobalUtils.getShiroPassword(registInfo.password, userInfo.getSalt()));
         userInfo.setToken(GlobalUtils.randomUUID());
         userInfoService.insert(userInfo);
         Login login = new Login();
@@ -90,15 +87,12 @@ public class UserInfoController {
     public ApiResult<UserInfo> login(@RequestBody Login login) {
         Subject currentUser = SecurityUtils.getSubject();
         //登录
-//        try {
-            currentUser.login(new UsernamePasswordToken(login.userName, login.password));
-//        } catch (IncorrectCredentialsException i) {
-//            throw new ServiceException("密码输入错误");
-//        } catch (AuthenticationException autherror) {
-//            throw new ServiceException("密码输入错误");
-//        }
+        currentUser.login(new UsernamePasswordToken(login.userName, login.password));
         //从session取出用户信息
         UserInfo user = (UserInfo) currentUser.getPrincipal();
+        user.setSalt(null);
+        user.setPassword(null);
+        user.setRoleUid(null);
         return ApiResponse.makeOKRsp(user);
     }
 

@@ -2,10 +2,13 @@ package com.heaven.fly.service.impl;
 
 import com.heaven.fly.service.RedisService;
 import com.alibaba.fastjson.JSON;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +23,18 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class RedisServiceImpl implements RedisService {
-    @Resource
-    private RedisTemplate<String, ?> redisTemplate;
+    @Autowired
+    RedisTemplate<Object, Object> redisTemplate;
+
+    @Autowired
+    StringRedisTemplate stringRedisTemplate;
+
+
+//    @Resource(name = "stringRedisTemplate")
+//    ValueOperations<String, String> valOpsStr;
+//
+//    @Resource(name = "redisTemplate")
+//    ValueOperations<Object, Object> valOpsObj;
 
     @Override
     public boolean set(final String key, final String value) {
